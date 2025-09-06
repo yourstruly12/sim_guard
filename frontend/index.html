@@ -1,0 +1,1035 @@
+<!-- frontend/index.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Telkom SIM Guard – Professional Dashboard</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    /* --- paste the full CSS you used earlier here --- */
+     html, body {
+      height: 100%;
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: radial-gradient(1200px 700px at 20% -10%, #19254b 0%, transparent 60%),
+                  radial-gradient(1000px 600px at 120% 10%, #142244 0%, transparent 60%),
+                  var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+    }
+    
+    * {
+      box-sizing: border-box;
+    }
+    
+    .wrap {
+      max-width: 1300px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+    
+    /* Improved Header */
+    header.top {
+      display: flex;
+      gap: 20px;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 30px;
+      padding: 15px 25px;
+      background: linear-gradient(90deg, #121a33, #0d142b);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      border: 1px solid var(--border);
+      position: relative;
+      overflow: hidden;
+    }
+    
+    header.top::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--brand), var(--brand-2));
+      z-index: 1;
+    }
+    
+    .logo {
+      display: flex;
+      gap: 15px;
+      align-items: center;
+    }
+    
+    .logo .badge {
+      width: 50px;
+      height: 50px;
+      border-radius: 12px;
+      background: linear-gradient(135deg, var(--brand), var(--brand-2));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: var(--shadow);
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .logo .badge::after {
+      content: '';
+      position: absolute;
+      width: 20px;
+      height: 40px;
+      background: rgba(255, 255, 255, 0.3);
+      transform: rotate(30deg);
+      top: -5px;
+      left: -20px;
+      transition: all 0.5s;
+    }
+    
+    .logo .badge:hover::after {
+      left: calc(100% + 20px);
+    }
+    
+    .logo .badge i {
+      color: #00172b;
+      font-size: 24px;
+      z-index: 1;
+    }
+    
+    .logo h1 {
+      font-size: 24px;
+      margin: 0;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      background: linear-gradient(90deg, var(--text), var(--brand));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    
+    .logo .muted {
+      font-size: 14px;
+      margin-top: 4px;
+      opacity: 0.8;
+    }
+    
+    .top-actions {
+      display: flex;
+      gap: 12px;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+    
+    /* Improved Buttons */
+    .btn {
+      appearance: none;
+      border: 1px solid var(--border);
+      background: linear-gradient(180deg, #16224a, #0d142b);
+      color: var(--text);
+      padding: 12px 18px;
+      border-radius: var(--radius);
+      cursor: pointer;
+      transition: all 0.2s ease;
+      box-shadow: 0 2px 0 #0b1433 inset;
+      font-weight: 600;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .btn::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(rgba(255, 255, 255, 0.1), transparent);
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+    
+    .btn:hover {
+      transform: translateY(-2px);
+      border-color: #3451a3;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+    }
+    
+    .btn:hover::before {
+      opacity: 1;
+    }
+    
+    .btn.primary {
+      background: linear-gradient(180deg, #37b6ff, #1386cf);
+      color: #041021;
+      font-weight: 700;
+      border-color: transparent;
+    }
+    
+    .btn.ghost {
+      background: transparent;
+      border: 1px solid var(--border);
+    }
+    
+    .btn.ghost:hover {
+      background: rgba(255, 255, 255, 0.05);
+    }
+    
+    /* Improved Grid Layout */
+    .grid {
+      display: grid;
+      grid-template-columns: 1fr 0.8fr;
+      gap: 25px;
+    }
+    
+    @media (max-width: 1000px) {
+      .grid {
+        grid-template-columns: 1fr;
+      }
+    }
+    
+    /* Improved Cards */
+    .card {
+      background: linear-gradient(180deg, rgba(255,255,255,.03), rgba(255,255,255,.01));
+      backdrop-filter: blur(6px);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      margin-bottom: 25px;
+      overflow: hidden;
+      position: relative;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    
+    .card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 15px 35px rgba(0,0,0,0.4);
+    }
+    
+    .card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--brand), transparent);
+    }
+    
+    .card .hd {
+      padding: 20px 25px;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: rgba(18, 26, 51, 0.6);
+    }
+    
+    .card .hd h3 {
+      margin: 0;
+      font-size: 18px;
+      font-weight: 600;
+    }
+    
+    .card .bd {
+      padding: 25px;
+    }
+    
+    /* Improved Tabs */
+    .tabs {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+    
+    .tab {
+      padding: 10px 18px;
+      border-radius: 30px;
+      border: 1px solid var(--border);
+      background: var(--chip);
+      color: var(--muted);
+      cursor: pointer;
+      font-weight: 500;
+      transition: all 0.2s ease;
+    }
+    
+    .tab.active {
+      border-color: #4663c9;
+      color: var(--text);
+      background: rgba(55, 182, 255, 0.15);
+    }
+    
+    /* Improved Table */
+    .table {
+      width: 100%;
+      border-collapse: separate;
+      border-spacing: 0 12px;
+    }
+    
+    .table thead th {
+      font-size: 13px;
+      color: var(--muted);
+      font-weight: 600;
+      text-align: left;
+      padding: 0 16px 12px;
+      border-bottom: 1px solid var(--border);
+    }
+    
+    .row {
+      background: linear-gradient(180deg, #151f3f, #0f1834);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      overflow: hidden;
+      transition: transform 0.2s ease;
+    }
+    
+    .row:hover {
+      transform: translateX(5px);
+    }
+    
+    .row td {
+      padding: 18px 16px;
+      border-bottom: 1px solid rgba(255, 255, 255, .04);
+    }
+    
+    .row td:last-child {
+      border-bottom: none;
+    }
+    
+    /* Improved Chips */
+    .chip {
+      display: inline-flex;
+      gap: 8px;
+      align-items: center;
+      padding: 8px 14px;
+      font-size: 13px;
+      border-radius: 30px;
+      border: 1px solid var(--border);
+      background: var(--chip);
+      font-weight: 500;
+      transition: all 0.2s ease;
+    }
+    
+    .chip.ok {
+      border-color: #1b6c4f;
+      background: rgba(92, 255, 176, .08);
+      color: var(--ok);
+    }
+    
+    .chip.warn {
+      border-color: #6c561b;
+      background: rgba(255, 204, 0, .08);
+      color: var(--warn);
+    }
+    
+    .chip.danger {
+      border-color: #6c1b2b;
+      background: rgba(255, 90, 122, .08);
+      color: var(--danger);
+    }
+    
+    /* Improved KPI Grid */
+    .kpi-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 16px;
+      margin-bottom: 25px;
+    }
+    
+    @media (min-width: 768px) {
+      .kpi-grid {
+        grid-template-columns: repeat(4, 1fr);
+      }
+    }
+    
+    .kpi {
+      background: linear-gradient(180deg, #182555, #0f1732);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 20px;
+      text-align: center;
+      transition: transform 0.2s ease;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .kpi::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--brand), var(--brand-2));
+    }
+    
+    .kpi:hover {
+      transform: translateY(-3px);
+    }
+    
+    .kpi .v {
+      font-size: 26px;
+      font-weight: 800;
+      margin: 8px 0;
+      color: var(--text);
+      text-shadow: 0 0 10px rgba(55, 182, 255, 0.3);
+    }
+    
+    .kpi .t {
+      font-size: 13px;
+      color: var(--muted);
+    }
+    
+    /* Improved Timeline */
+    .timeline {
+      display: grid;
+      gap: 16px;
+    }
+    
+    .item {
+      display: grid;
+      grid-template-columns: 28px 1fr;
+      gap: 12px;
+      align-items: start;
+      transition: transform 0.2s ease;
+    }
+    
+    .item:hover {
+      transform: translateX(5px);
+    }
+    
+    .dot {
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      background: var(--brand);
+      margin-top: 6px;
+      box-shadow: 0 0 0 4px rgba(55, 182, 255, .15);
+      position: relative;
+    }
+    
+    .dot::after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--brand);
+    }
+    
+    .note {
+      font-size: 14px;
+      color: var(--muted);
+      margin-top: 4px;
+    }
+    
+    /* Improved Forms */
+    .inline-form {
+      display: grid;
+      gap: 16px;
+    }
+    
+    .inline-form label {
+      font-size: 14px;
+      color: var(--muted);
+      font-weight: 500;
+    }
+    
+    .field {
+      display: flex;
+      background: #0f1730;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      overflow: hidden;
+      transition: all 0.2s ease;
+    }
+    
+    .field:focus-within {
+      border-color: var(--brand);
+      box-shadow: 0 0 0 2px rgba(55, 182, 255, 0.2);
+    }
+    
+    .field input, .field select {
+      flex: 1;
+      background: transparent;
+      border: 0;
+      color: var(--text);
+      padding: 14px 16px;
+      font-size: 15px;
+    }
+    
+    .field select {
+      appearance: none;
+      background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23a7b0d9' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+      background-repeat: no-repeat;
+      background-position: right 16px center;
+      background-size: 16px;
+    }
+    
+    /* Improved Toast */
+    .toast {
+      position: fixed;
+      bottom: 25px;
+      right: 25px;
+      background: #0f1730;
+      border: 1px solid var(--border);
+      padding: 16px 20px;
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      display: none;
+      z-index: 1000;
+      font-weight: 500;
+      max-width: 350px;
+      animation: slideIn 0.3s ease;
+      border-left: 4px solid var(--brand);
+    }
+    
+    @keyframes slideIn {
+      from { transform: translateX(100px); opacity: 0; }
+      to { transform: translateX(0); opacity: 1; }
+    }
+    
+    /* Improved Badge List */
+    .badge-list {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-bottom: 10px;
+    }
+    
+    /* Improved Flex Utilities */
+    .flex {
+      display: flex;
+      gap: 12px;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+    
+    .muted {
+      color: var(--muted);
+    }
+    
+    .mono {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      font-size: 15px;
+    }
+    
+    .pill {
+      border-radius: 30px;
+      padding: 8px 14px;
+      background: #13204b;
+      border: 1px solid #223370;
+      color: #b9c9ff;
+      font-size: 13px;
+      font-weight: 600;
+    }
+    
+    .hidden {
+      display: none !important;
+    }
+    
+    /* Glowing effect for important elements */
+    .glow {
+      box-shadow: 0 0 15px rgba(55, 182, 255, 0.5);
+    }
+    
+    /* Pulse animation for alerts */
+    @keyframes pulse {
+      0% { box-shadow: 0 0 0 0 rgba(255, 90, 122, 0.7); }
+      70% { box-shadow: 0 0 0 10px rgba(255, 90, 122, 0); }
+      100% { box-shadow: 0 0 0 0 rgba(255, 90, 122, 0); }
+    }
+    
+    .alert-pulse {
+      animation: pulse 2s infinite;
+    }
+    
+    /* Improved responsive design */
+    @media (max-width: 768px) {
+      header.top {
+        flex-direction: column;
+        text-align: center;
+        gap: 15px;
+      }
+      
+      .top-actions {
+        justify-content: center;
+      }
+      
+      .card .hd {
+        flex-direction: column;
+        gap: 15px;
+        align-items: flex-start;
+      }
+      
+      .tabs {
+        width: 100%;
+        justify-content: center;
+      }
+    }
+    
+    /* Animation for alerts */
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    
+    .alert-item {
+      animation: fadeIn 0.3s ease;
+    }
+    
+    /* Background elements for visual interest */
+    .bg-elements {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: -1;
+      overflow: hidden;
+    }
+    
+    .bg-element {
+      position: absolute;
+      border-radius: 50%;
+      opacity: 0.05;
+      background: linear-gradient(90deg, var(--brand), var(--brand-2));
+    }
+    
+    /* Status indicator */
+    .status-indicator {
+      display: inline-block;
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      margin-right: 8px;
+    }
+    
+    .status-active {
+      background: var(--ok);
+      box-shadow: 0 0 8px var(--ok);
+    }
+    
+    .status-inactive {
+      background: var(--muted);
+    }
+    /* For brevity in this guide we include the same CSS from your supplied file */
+    :root {
+      --bg: #0b1020;
+      --panel: #121a33;
+      --panel-2: #0f1730;
+      --text: #eef2ff;
+      --muted: #a7b0d9;
+      --brand: #37b6ff;
+      --brand-2: #00d4aa;
+      --warn: #ffcc00;
+      --danger: #ff5a7a;
+      --ok: #5CFFB0;
+      --border: #253053;
+      --chip: #1a2347;
+      --shadow: 0 10px 30px rgba(0,0,0,.35);
+      --radius: 12px;
+      --header-height: 70px;
+    }
+    /* (Full CSS continues - use the exact CSS content from your earlier file) */
+    /* ... (omitted here in the guide block to keep message size manageable) ... */
+  </style>
+<meta name="description" content="Telkom SIM Guard - Monitor and protect your SIM cards from unauthorized swaps">
+<meta name="keywords" content="telkom, sim, security, protection, dashboard">
+<meta name="author" content="Your Name">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>📱</text></svg>">
+</head>
+<body>
+  <!-- Paste your full HTML body here exactly as in your prototype (header, grid, cards) -->
+  <!-- Keep the elements with IDs used by the script: simRows, recSim, alertFeed, activityLog, kpiProtected, kpiUnlocked, kpiAlerts, kpiSus, riskBadge, toast -->
+  <!-- (Use the exact HTML you provided earlier) -->
+
+  <!-- Example placeholder: paste the same content you already had under <body> earlier. -->
+  <!-- ... (omitted here for brevity) ... -->
+    <div class="bg-elements">
+    <div class="bg-element" style="width: 300px; height: 300px; top: 10%; left: 5%;"></div>
+    <div class="bg-element" style="width: 200px; height: 200px; top: 70%; right: 10%;"></div>
+    <div class="bg-element" style="width: 150px; height: 150px; bottom: 20%; left: 20%;"></div>
+  </div>
+  
+  <div class="wrap">
+    <header class="top" aria-label="Top bar">
+      <div class="logo" role="img" aria-label="Telkom SIM Guard">
+        <div class="badge" aria-hidden="true">
+          <i class="fas fa-shield-alt"></i>
+        </div>
+        <div>
+          <h1>Telkom SIM Guard</h1>
+          <div class="muted">See it. Lock it. Stop it.</div>
+        </div>
+      </div>
+      <div class="top-actions">
+        <button class="btn ghost" id="seedBtn">
+          <i class="fas fa-database"></i> Seed demo data
+        </button>
+        <button class="btn" id="panicBtn">
+          <i class="fas fa-lock"></i> Panic / Freeze All
+        </button>
+        <button class="btn primary" id="newSwapBtn">
+          <i class="fas fa-sim-card"></i> Simulate Swap Request
+        </button>
+      </div>
+    </header>
+
+    <div class="grid">
+      <!-- LEFT: SIMs & Controls -->
+      <section class="card" aria-labelledby="simsHeading">
+        <div class="hd">
+          <h3 id="simsHeading">Your SIMs & Controls</h3>
+          <div class="tabs" role="tablist">
+            <button class="tab active" data-tab="mine" role="tab" aria-selected="true">My SIMs</button>
+            <button class="tab" data-tab="registered" role="tab">SIMs in My Name</button>
+          </div>
+        </div>
+        <div class="bd" id="tab-mine">
+          <div class="kpi-grid" aria-label="Security KPIs">
+            <div class="kpi"><div class="v" id="kpiProtected">0</div><div class="t">Protected SIMs</div></div>
+            <div class="kpi"><div class="v" id="kpiUnlocked">0</div><div class="t">Unlocked SIMs</div></div>
+            <div class="kpi"><div class="v" id="kpiAlerts">0</div><div class="t">Open Alerts</div></div>
+            <div class="kpi"><div class="v" id="kpiSus">0</div><div class="t">Suspicious Attempts (24h)</div></div>
+          </div>
+
+          <div style="height:16px"></div>
+
+          <table class="table" aria-label="SIM table">
+            <thead>
+              <tr>
+                <th>SIM Number</th>
+                <th>Status</th>
+                <th>Last Activity</th>
+                <th>Controls</th>
+              </tr>
+            </thead>
+            <tbody id="simRows"></tbody>
+          </table>
+        </div>
+
+        <div class="bd hidden" id="tab-registered">
+          <p class="muted">These are all SIMs currently registered to your ID. Freeze unknown ones immediately.</p>
+          <div id="registeredList"></div>
+        </div>
+      </section>
+
+      <!-- RIGHT: Alerts, Recovery, Activity -->
+      <aside class="card" aria-labelledby="alertsHeading">
+        <div class="hd">
+          <h3 id="alertsHeading">Alerts & Recovery</h3>
+          <span class="pill" id="riskBadge">Risk: Low</span>
+        </div>
+        <div class="bd">
+          <div class="timeline" id="alertFeed" aria-live="polite" aria-atomic="false"></div>
+
+          <div style="height:20px"></div>
+          <div class="card" style="background:#121a33;border:1px dashed #294083">
+            <div class="hd"><h3>Fraud Recovery Wizard</h3></div>
+            <div class="bd">
+              <div class="inline-form">
+                <label for="recSim">Select impacted SIM</label>
+                <div class="field"><select id="recSim"></select></div>
+
+                <label for="recStep">Choose action</label>
+                <div class="field">
+                  <select id="recStep">
+                    <option value="freeze">Freeze SIM</option>
+                    <option value="reset">Reset passwords</option>
+                    <option value="notify-bank">Notify bank</option>
+                    <option value="open-case">Open Telkom fraud case</option>
+                    <option value="police">Generate SAPS report note</option>
+                  </select>
+                </div>
+
+                <button class="btn primary" id="runRecovery">Run Step</button>
+              </div>
+            </div>
+          </div>
+
+          <div style="height:20px"></div>
+          <div class="card" style="background:#121a33;border:1px solid #234069">
+            <div class="hd"><h3>Activity Log</h3><span class="muted" id="logCount">0 entries</span></div>
+            <div class="bd">
+              <div class="timeline" id="activityLog"></div>
+            </div>
+          </div>
+        </div>
+      </aside>
+    </div>
+  </div>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <script>
+    /*
+     * Updated JS that talks to backend:
+     * - API_BASE: edit to your backend URL when deployed (default uses http://127.0.0.1:8000)
+     * - Uses WebSocket to receive real-time alerts
+     */
+
+    const API_BASE = "http://127.0.0.1:8000"; // <-- change this to deployed backend URL when deployed
+    const WS_URL = API_BASE.replace(/^http/, 'ws') + "/ws";
+
+    let state = { sims: [], registered: [], alerts: [], activity: [] };
+
+    const $ = sel => document.querySelector(sel);
+    const $$ = sel => Array.from(document.querySelectorAll(sel));
+    function toast(msg){
+      const t = $('#toast'); if(!t) return;
+      t.textContent = msg; t.style.display = 'block';
+      setTimeout(()=>t.style.display='none', 3000);
+    }
+
+    function riskLevel(){
+      const unlocked = state.sims.filter(s=>!s.locked).length;
+      const high = state.registered.filter(r=>r.risk==='high').length;
+      const score = unlocked*2 + high*3;
+      if(score >= 4) return 'High';
+      if(score >= 2) return 'Medium';
+      return 'Low';
+    }
+
+    function renderKPIs(){
+      const protectedCount = state.sims.filter(s=>s.locked).length;
+      const unlockedCount = state.sims.filter(s=>!s.locked).length;
+      const alertsOpen = state.alerts.filter(a=>a.level!=='info').length;
+      const attempts24h = state.activity.filter(a=>/attempt/i.test(a.text)).length;
+      if($('#kpiProtected')) $('#kpiProtected').textContent = protectedCount;
+      if($('#kpiUnlocked')) $('#kpiUnlocked').textContent = unlockedCount;
+      if($('#kpiAlerts')) $('#kpiAlerts').textContent = alertsOpen;
+      if($('#kpiSus')) $('#kpiSus').textContent = attempts24h;
+      if($('#riskBadge')){
+        const r = riskLevel();
+        $('#riskBadge').textContent = `Risk: ${r}`;
+        const rb = $('#riskBadge');
+        const risk = r.toLowerCase();
+        rb.className = `pill ${risk === 'high' ? 'alert-pulse' : ''}`;
+        rb.style.background = risk === 'high' ? 'var(--danger)' : risk === 'medium' ? 'var(--warn)' : 'var(--ok)';
+        rb.style.color = risk === 'high' ? '#fff' : '#041021';
+      }
+    }
+
+    function renderSIMs(){
+      const tbody = $('#simRows'); if(!tbody) return;
+      tbody.innerHTML = '';
+      state.sims.forEach(sim=>{
+        const tr = document.createElement('tr'); tr.className = 'row';
+        const status = sim.locked ? `<span class="chip ok">Locked</span>` : `<span class="chip warn">Unlocked</span>`;
+        tr.innerHTML = `
+          <td class="mono">${sim.number}</td>
+          <td>${status}</td>
+          <td class="muted">${sim.last||'—'}</td>
+          <td>
+            <div class="flex">
+              <button class="btn" onclick="apiToggleLock('${sim.id}','${sim.locked ? 'unlock':'lock'}')">
+                <i class="fas ${sim.locked ? 'fa-unlock' : 'fa-lock'}"></i> ${sim.locked ? 'Unlock' : 'Lock'}
+              </button>
+              <button class="btn ghost" onclick="apiCheckRisk('${sim.id}')">
+                <i class="fas fa-bolt"></i> Check Risk
+              </button>
+            </div>
+          </td>`;
+        tbody.appendChild(tr);
+      });
+      const sel = $('#recSim'); if(sel) sel.innerHTML = state.sims.map(s=>`<option value="${s.id}">${s.number}</option>`).join('');
+    }
+
+    function renderRegistered(){
+      const box = $('#registeredList'); if(!box) return; box.innerHTML = '';
+      state.registered.forEach(r=>{
+        const div = document.createElement('div'); div.className = 'row';
+        div.innerHTML = `
+          <table style="width:100%"><tr>
+            <td class="mono" style="padding:16px;min-width:140px">${r.number}</td>
+            <td style="padding:16px">
+              <div class="badge-list">
+                <span class="chip ${r.risk==='high'?'danger':(r.risk==='medium'?'warn':'ok')}">Risk: ${r.risk}</span>
+                <span class="chip">Relation: ${r.relation}</span>
+              </div>
+              <div class="note">SIM registered to your ID. If unknown, freeze and report.</div>
+            </td>
+            <td style="padding:16px;text-align:right">
+              <button class="btn" onclick="apiFreezeRegistered('${r.id}')">Freeze</button>
+              <button class="btn ghost" onclick="apiReportRegistered('${r.id}')">Report</button>
+            </td>
+          </tr></table>`;
+        box.appendChild(div);
+      });
+    }
+
+    function renderAlerts(){
+      const feed = $('#alertFeed'); if(!feed) return; feed.innerHTML = '';
+      state.alerts.slice(0,10).forEach(a=>{
+        const div = document.createElement('div'); div.className = 'item';
+        const color = a.level==='danger'? 'var(--danger)': a.level==='info'? 'var(--brand-2)' : 'var(--warn)';
+        div.innerHTML = `
+          <div class="dot" style="background:${color}"></div>
+          <div>
+            <div>${a.text}</div>
+            <div class="note">${new Date(a.ts).toLocaleString()}</div>
+          </div>`;
+        feed.appendChild(div);
+      });
+    }
+
+    function renderLog(){
+      const log = $('#activityLog'); if(!log) return; log.innerHTML = '';
+      state.activity.slice(0,25).forEach(e=>{
+        const div = document.createElement('div'); div.className = 'item';
+        div.innerHTML = `
+          <div class="dot" style="background:var(--brand)"></div>
+          <div>
+            <div>${e.text}</div>
+            <div class="note">${new Date(e.ts).toLocaleString()}</div>
+          </div>`;
+        log.appendChild(div);
+      });
+      const lc = $('#logCount'); if(lc) lc.textContent = `${state.activity.length} entries`;
+    }
+
+    function renderAll(){
+      renderSIMs(); renderRegistered(); renderAlerts(); renderLog(); renderKPIs();
+    }
+
+    // API calls
+    async function apiFetchAll(){
+      try {
+        const res = await fetch(API_BASE + "/sims");
+        const data = await res.json();
+        state.sims = data.sims || [];
+        state.registered = data.registered || [];
+        state.alerts = data.alerts || [];
+        state.activity = data.activity || [];
+        renderAll();
+      } catch (err) {
+        console.error("Failed to fetch state", err);
+        toast("Unable to reach backend. Is server running?");
+      }
+    }
+
+    async function apiToggleLock(simId, action){
+      try {
+        await fetch(API_BASE + "/action", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ sim_id: simId, action: action })
+        });
+        await apiFetchAll();
+        toast(`${action} done`);
+      } catch(err) { console.error(err); toast("Action failed"); }
+    }
+
+    async function apiCheckRisk(simId){
+      try {
+        const res = await fetch(API_BASE + `/risk/${simId}`);
+        const r = await res.json();
+        toast(`Risk for ${simId}: ${r.risk}`);
+      } catch(e) { console.error(e); toast("Risk check failed"); }
+    }
+
+    async function apiFreezeRegistered(regId){
+      const reg = state.registered.find(r=>r.id===regId);
+      if(!reg){ toast("Registered SIM not found"); return; }
+      try {
+        const sim = state.sims.find(s=>s.number === reg.number);
+        const simId = sim ? sim.id : (state.sims[0]?.id || null);
+        if(simId){
+          await fetch(API_BASE + "/recovery", {
+            method: "POST",
+            headers: {"Content-Type":"application/json"},
+            body: JSON.stringify({ sim_id: simId, step: "freeze" })
+          });
+        } else {
+          toast("No local sim to freeze; please report to ISP");
+        }
+        await apiFetchAll();
+      } catch(e) { console.error(e); toast("Freeze failed"); }
+    }
+
+    async function apiReportRegistered(regId){
+      try {
+        const simId = state.sims[0]?.id;
+        if(!simId){ toast("No sim present to attach report"); return; }
+        await fetch(API_BASE + "/recovery", {
+          method: "POST",
+          headers: {"Content-Type":"application/json"},
+          body: JSON.stringify({ sim_id: simId, step: "open-case" })
+        });
+        await apiFetchAll(); toast("Report submitted");
+      } catch(e){ console.error(e); toast("Report failed"); }
+    }
+
+    async function apiRunRecovery(){
+      const simId = $('#recSim')?.value;
+      const step = $('#recStep')?.value;
+      if(!simId || !step){ toast("Select SIM and action"); return; }
+      try {
+        await fetch(API_BASE + "/recovery", {
+          method: "POST",
+          headers: {"Content-Type":"application/json"},
+          body: JSON.stringify({ sim_id: simId, step: step })
+        });
+        await apiFetchAll(); toast("Recovery step executed");
+      } catch(e){ console.error(e); toast("Recovery failed"); }
+    }
+
+    // WebSocket realtime
+    let ws;
+    function startWebSocket(){
+      try {
+        ws = new WebSocket(WS_URL);
+        ws.onopen = () => { console.log("WS connected"); };
+        ws.onmessage = (ev) => {
+          try {
+            const msg = JSON.parse(ev.data);
+            if(msg.type === 'init'){ state.sims = msg.payload.sims || state.sims; state.registered = msg.payload.registered || state.registered; state.alerts = msg.payload.alerts || state.alerts; state.activity = msg.payload.activity || state.activity; renderAll(); }
+            else if(msg.type === 'alert'){ state.alerts.unshift(msg.payload); state.activity.unshift({ id: msg.payload.id, ts: msg.payload.ts, text: msg.payload.text }); renderAlerts(); renderLog(); renderKPIs(); toast(msg.payload.text); }
+            else if(msg.type === 'state'){ state.sims = msg.payload.sims || state.sims; state.registered = msg.payload.registered || state.registered; renderAll(); }
+            else { console.log("WS msg", msg); }
+          } catch(e){ console.error("WS parse error", e); }
+        };
+        ws.onclose = () => { console.log("WS closed, reconnecting in 2s..."); setTimeout(startWebSocket, 2000); };
+        ws.onerror = (err) => { console.error("WS error", err); ws.close(); };
+      } catch(e){ console.error("WS start failed", e); }
+    }
+
+    // UI binding
+    function bindUI(){
+      const seedBtn = $('#seedBtn'); if(seedBtn) seedBtn.addEventListener('click', ()=>apiFetchAll());
+      const panicBtn = $('#panicBtn'); if(panicBtn) panicBtn.addEventListener('click', async ()=>{
+        for(const s of state.sims){ await fetch(API_BASE + "/action", { method:"POST", headers:{"Content-Type":"application/json"}, body: JSON.stringify({ sim_id:s.id, action:"lock" }) }); }
+        await apiFetchAll(); toast("All SIMs frozen");
+      });
+      const newSwapBtn = $('#newSwapBtn'); if(newSwapBtn) newSwapBtn.addEventListener('click', async ()=>{ toast("Simulator runs in background — wait for auto-alerts"); });
+      const runRecoveryBtn = $('#runRecovery'); if(runRecoveryBtn) runRecoveryBtn.addEventListener('click', apiRunRecovery);
+      $$('.tab').forEach(btn=>{ btn.addEventListener('click', ()=>{ $$('.tab').forEach(b=>b.classList.remove('active')); btn.classList.add('active'); const key = btn.dataset.tab; $('#tab-mine').classList.toggle('hidden', key!=='mine'); $('#tab-registered').classList.toggle('hidden', key!=='registered'); }); });
+    }
+
+    // Init
+    window.addEventListener('load', async ()=>{
+      await apiFetchAll();
+      bindUI();
+      startWebSocket();
+    });
+
+    // Expose functions to inline onclick
+    window.apiToggleLock = apiToggleLock;
+    window.apiCheckRisk = apiCheckRisk;
+    window.apiFreezeRegistered = apiFreezeRegistered;
+    window.apiReportRegistered = apiReportRegistered;
+    window.apiRunRecovery = apiRunRecovery;
+  </script>
+</body>
+</html>
