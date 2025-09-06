@@ -7,7 +7,7 @@
   <title>Telkom SIM Guard – Professional Dashboard</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <style>
-    /* --- paste the full CSS you used earlier here --- */
+   
      html, body {
       height: 100%;
       margin: 0;
@@ -638,8 +638,8 @@
       --radius: 12px;
       --header-height: 70px;
     }
-    /* (Full CSS continues - use the exact CSS content from your earlier file) */
-    /* ... (omitted here in the guide block to keep message size manageable) ... */
+    
+   
   </style>
 <meta name="description" content="Telkom SIM Guard - Monitor and protect your SIM cards from unauthorized swaps">
 <meta name="keywords" content="telkom, sim, security, protection, dashboard">
@@ -647,12 +647,7 @@
 <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>📱</text></svg>">
 </head>
 <body>
-  <!-- Paste your full HTML body here exactly as in your prototype (header, grid, cards) -->
-  <!-- Keep the elements with IDs used by the script: simRows, recSim, alertFeed, activityLog, kpiProtected, kpiUnlocked, kpiAlerts, kpiSus, riskBadge, toast -->
-  <!-- (Use the exact HTML you provided earlier) -->
-
-  <!-- Example placeholder: paste the same content you already had under <body> earlier. -->
-  <!-- ... (omitted here for brevity) ... -->
+ 
     <div class="bg-elements">
     <div class="bg-element" style="width: 300px; height: 300px; top: 10%; left: 5%;"></div>
     <div class="bg-element" style="width: 200px; height: 200px; top: 70%; right: 10%;"></div>
@@ -773,11 +768,7 @@
   <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
   <script>
-    /*
-     * Updated JS that talks to backend:
-     * - API_BASE: edit to your backend URL when deployed (default uses http://127.0.0.1:8000)
-     * - Uses WebSocket to receive real-time alerts
-     */
+
 
     const API_BASE = "http://127.0.0.1:8000"; // <-- change this to deployed backend URL when deployed
     const WS_URL = API_BASE.replace(/^http/, 'ws') + "/ws";
