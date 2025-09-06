@@ -1,4 +1,4 @@
-# SIMGuard - Demo (Hackathon)
+# SIMGuard 
 
 This repo contains a demo of SIMGuard Central: a prototype automated system that monitors SIM registrations and simulates auto-freeze & recovery workflows.
 
